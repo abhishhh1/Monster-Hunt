@@ -21,29 +21,20 @@ var timerText;
 
 window.onload = function()
 {
-    /*
-     *      Set up the Canvas with Size and height
-     *
-     */
+   
     var canvas = document.getElementById('myCanvas');
     context = canvas.getContext('2d');
     context.canvas.width = WIDTH;
     context.canvas.height = HEIGHT;
     stage = new createjs.Stage("myCanvas");
 
-    /*
-     *      Set up the Asset Queue and load sounds
-     *
-     */
+   
     queue = new createjs.LoadQueue(false);
     queue.installPlugin(createjs.Sound);
     queue.on("complete", queueLoaded, this);
     createjs.Sound.alternateExtensions = ["ogg"];
 
-    /*
-     *      Create a load manifest for all assets
-     *
-     */
+   
     queue.loadManifest([
         {id: 'backgroundImage', src: 'assets/background.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
@@ -57,59 +48,49 @@ window.onload = function()
     ]);
     queue.load();
 
-    /*
-     *      Create a timer that updates once per second
-     *
-     */
+    
     gameTimer = setInterval(updateTime, 1000);
 
 }
 
 function queueLoaded(event)
 {
-    // Add background image
+   
     var backgroundImage = new createjs.Bitmap(queue.getResult("backgroundImage"))
     stage.addChild(backgroundImage);
 
-    //Add Score
+    
     scoreText = new createjs.Text("1UP: " + score.toString(), "36px Arial", "#FFF");
     scoreText.x = 10;
     scoreText.y = 10;
     stage.addChild(scoreText);
 
-    //Ad Timer
+    
     timerText = new createjs.Text("Time: " + gameTime.toString(), "36px Arial", "#FFF");
     timerText.x = 800;
     timerText.y = 10;
     stage.addChild(timerText);
 
-    // Play background sound
+    
     createjs.Sound.play("background", {loop: -1});
 
-    // Create bat spritesheet
+    
     spriteSheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batSpritesheet')],
         "frames": {"width": 198, "height": 117},
         "animations": { "flap": [0,4] }
     });
 
-    // Create bat death spritesheet
+    
     batDeathSpriteSheet = new createjs.SpriteSheet({
     	"images": [queue.getResult('batDeath')],
     	"frames": {"width": 198, "height" : 148},
     	"animations": {"die": [0,7, false,1 ] }
     });
 
-    // Create bat sprite
+    
     createEnemy();
 
-   /*
-    // Create crosshair
-    crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
-    crossHair.x = WIDTH/2;
-    crossHair.y = HEIGHT/2;
-    stage.addChild(crossHair);
-    */
 
     // Add ticker
     createjs.Ticker.setFPS(15);
