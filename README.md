@@ -1,8 +1,5 @@
-30MinuteGame
+Bat-Hunt
 ============
-
-30 Minutes to Your First Game from ByteArray.
-
-See the show on Youtube at http://www.youtube.com/playlist?list=PLAgylfU8wrtsQWpm3NMCpEjV5fYyrC51p
+<h3>It is just a simple game created using Javascript</h3>
 
 
